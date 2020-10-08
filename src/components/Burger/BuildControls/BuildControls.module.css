@@ -10,6 +10,20 @@
 }
 
 
+.ClearButton{
+  background-color: #df3131;
+  outline: none;
+  cursor: pointer;
+  border: 1px solid #966909;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 1.2em;
+  margin-bottom: 10px;
+  padding: 15px 30px;
+  box-shadow: 2px 2px 2px #966909;
+}
+
+
 .OrderButton {
   background-color: #59c968;
   outline: none;

@@ -24,7 +24,18 @@ const BuildControls = (props) => {
           />
         );
       })}
-      <button className={classes.OrderButton}>ORDER NOW</button>
+      <button 
+      className={classes.OrderButton}
+      disabled = {!props.purchasable}
+      onClick = {props.summary}
+      >
+      ORDER NOW
+      </button>
+      <button 
+      className={classes.ClearButton}
+      onClick={props.clearOrder}>
+        CLEAR ORDER
+      </button>
     </div>
   );
 };
