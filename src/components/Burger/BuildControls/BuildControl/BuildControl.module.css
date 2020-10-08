@@ -39,11 +39,13 @@
 .BuildControl .Less {  
   background-color: #D39952;
   color: white;
+  font-size: 1.5rem;
 }
 
 .BuildControl .More {
   background-color: #8F5E1E;
   color: white;
+  font-size: 1.5rem;
 }
 
 .BuildControl .Less:hover, .BuildControl .Less:active {  

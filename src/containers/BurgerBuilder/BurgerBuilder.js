@@ -41,6 +41,10 @@ class BurgerBuilder extends Component {
     this.setState({ showSummary: true });
   };
 
+  closeSummaryHanlder = () => {
+    this.setState({ showSummary: false });
+  };
+
   clearOrder = () => {
     this.setState({
       ingredients: INITIAL_INGREDIENTS,
@@ -90,7 +94,7 @@ class BurgerBuilder extends Component {
 
     return (
       <Aux>
-        <Modal show={this.state.showSummary}>
+        <Modal show={this.state.showSummary} closeModal={this.closeSummaryHanlder} >
           <OrderSummary ingredients={this.state.ingredients} />
         </Modal>
         <Burger ingredients={this.state.ingredients} />
