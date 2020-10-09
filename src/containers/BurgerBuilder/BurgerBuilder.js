@@ -54,7 +54,7 @@ class BurgerBuilder extends Component {
   };
 
   purchaseContinueHandler = () => {
-    alert('Hamburguer to be purchased...')
+    alert('Hamburger to be purchased...')
   }
 
   addIngredientHandler = (type) => {
