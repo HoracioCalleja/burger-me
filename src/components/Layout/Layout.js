@@ -6,7 +6,7 @@ import SideDrawer from "../Navigation/SideDrawer/SideDrawer";
 
 class Layout extends Component {
   state = {
-    showSideDrawer: true,
+    showSideDrawer: false,
   };
 
   closeSideDrawerHandler = () => {
@@ -15,7 +15,7 @@ class Layout extends Component {
 
   sideDrawerToggleHandler = (e) => {
     this.setState((prevState) => {
-      return {showSideDrawer : !prevState.showSideDrawer}
+      return { showSideDrawer: !prevState.showSideDrawer };
     });
   };
 
