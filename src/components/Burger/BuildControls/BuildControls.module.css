@@ -28,6 +28,11 @@
   color: rgb(0, 0, 0);
 }
 
+.Price{
+  font-size: 1.2rem;
+  margin: 25px 0;
+  
+}
 
 .OrderButton {
   background-color: #59c968;

@@ -1,0 +1,20 @@
+.Summary{
+  text-align: center;
+  padding: 25px;
+}
+
+.Order{
+  margin: 10px 0 ;
+}
+
+.TotalPrice{
+  margin: 25px 0;
+}
+
+.Ingredients{
+  list-style: none;
+}
+
+.Ingredient{
+  padding: 10px 0;
+}
