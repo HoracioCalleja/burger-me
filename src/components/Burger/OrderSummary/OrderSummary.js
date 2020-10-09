@@ -3,6 +3,8 @@ import Button from '../../UI/Button/Button';
 import classes from './OrderSummary.module.css'
 
 const OrderSummary = (props) => {
+  
+  
   const ingridientSummary = Object.keys(props.ingredients).map(
     (ingredientKey, index) => {
       return (
