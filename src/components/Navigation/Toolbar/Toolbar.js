@@ -4,6 +4,7 @@ import Logo from "../../UI/Logo/Logo";
 import NavigationItems from "../NavigationItems/NavigationItems";
 import DrawerToggler from "../SideDrawer/DrawerToggler/DrawerToggler";
 
+
 const Toolbar = (props) => (
   <header className={classes.Toolbar}>
     <DrawerToggler clicked={props.toggleSideDrawer}/>
