@@ -4,9 +4,11 @@ import Aux from "../../../hoc/Auxilliar";
 import BackDrop from "../Backdrop/Backdrop";
 
 class Modal extends Component {
-  
-  shouldComponentUpdate(nextProps,nextState){
-    return nextProps.show !== this.props.show;
+  shouldComponentUpdate(nextProps, nextState) {
+    return (
+      nextProps.show !== this.props.show ||
+      nextProps.childre !== this.props.children
+    );
   }
 
   render() {
