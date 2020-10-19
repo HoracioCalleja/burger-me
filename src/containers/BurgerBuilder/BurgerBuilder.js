@@ -67,27 +67,27 @@ class BurgerBuilder extends Component {
   };
 
   purchaseContinueHandler = () => {
-    this.setState({ loading: true });
-    const order = {
-      ingredients: this.state.ingredients,
-      price: this.state.totalPrice,
-      customer: {
-        name: "Charly García",
-        address: {
-          street: "Olazabal 2331 10b",
-          zipcode: "1421",
-          country: "Argentina",
-        },
-        deliveryMethod: "fastest",
-      },
-    };
-    axiosInstance
-      .post("/orders.json", order)
-      .then((response) => {
-        this.setState({ loading: false, showSummary: false });
-        console.log(response.data);
-      })
-      .then(() => {
+    // this.setState({ loading: true });
+    // const order = {
+    //   ingredients: this.state.ingredients,
+    //   price: this.state.totalPrice,
+    //   customer: {
+    //     name: "Charly García",
+    //     address: {
+    //       street: "Olazabal 2331 10b",
+    //       zipcode: "1421",
+    //       country: "Argentina",
+    //     },
+    //     deliveryMethod: "fastest",
+    //   },
+    // };
+    // axiosInstance
+    //   .post("/orders.json", order)
+    //   .then((response) => {
+    //     this.setState({ loading: false, showSummary: false });
+    //     console.log(response.data);
+    //   })
+      // .then(() => {
         const queryParams = [];
         for (let key in this.state.ingredients) {
           queryParams.push(
@@ -96,15 +96,16 @@ class BurgerBuilder extends Component {
               encodeURIComponent(this.state.ingredients[key])
           );
         }
+        queryParams.push('price=' + this.state.totalPrice);
         const query = queryParams.join("&");
         this.props.history.push({
           pathname: "/checkout",
           search: "?" + query,
         });
-      })
-      .catch((e) => {
-        this.setState({ loading: false, showSummary: false });
-      });
+      // })
+      // .catch((e) => {
+      //   this.setState({ loading: false, showSummary: false });
+      // });
   };
 
   addIngredientHandler = (type) => {
