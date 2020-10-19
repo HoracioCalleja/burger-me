@@ -17,8 +17,6 @@ const INGREDIENT_PRICES = {
 const INITIAL_PRICE = 4;
 
 class BurgerBuilder extends Component {
-
-  
   state = {
     ingredients: null,
     totalPrice: INITIAL_PRICE,
@@ -29,7 +27,7 @@ class BurgerBuilder extends Component {
   };
 
   componentDidMount() {
-    console.log(this.props)
+    console.log(this.props);
     this.getIngredients();
   }
 
@@ -88,7 +86,22 @@ class BurgerBuilder extends Component {
       .then((response) => {
         this.setState({ loading: false, showSummary: false });
         console.log(response.data);
-      }).then(() => this.props.history.push('/checkout'))
+      })
+      .then(() => {
+        const queryParams = [];
+        for (let key in this.state.ingredients) {
+          queryParams.push(
+            encodeURIComponent(key) +
+              "=" +
+              encodeURIComponent(this.state.ingredients[key])
+          );
+        }
+        const query = queryParams.join("&");
+        this.props.history.push({
+          pathname: "/checkout",
+          search: "?" + query,
+        });
+      })
       .catch((e) => {
         this.setState({ loading: false, showSummary: false });
       });
@@ -133,7 +146,11 @@ class BurgerBuilder extends Component {
       disableInfo[key] = disableInfo[key] <= 0;
     }
 
-    let burger = this.state.error ? <p>Ingredients cant be loaded</p> : <Spinner />;
+    let burger = this.state.error ? (
+      <p>Ingredients cant be loaded</p>
+    ) : (
+      <Spinner />
+    );
     let orderSummary = null;
     if (this.state.ingredients) {
       burger = (

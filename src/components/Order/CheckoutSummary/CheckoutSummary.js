@@ -4,16 +4,18 @@ import Button from "../../UI/Button/Button";
 import classes from "./CheckoutSummary.module.css";
 
 const CheckoutSummary = (props) => {
+
+
   return (
-    <div className={classes.CheckoutSummary} >
+    <div className={classes.CheckoutSummary}>
       <h1>We hope it taste well!</h1>
       <div className={classes.BurgerContainer}>
         <Burger ingredients={props.ingredients} />
       </div>
-      <Button buttonType="Danger" clicked>
+      <Button buttonType="Danger" clicked={props.cancel}>
         CANCEL
       </Button>
-      <Button buttonType="Success" clicked>
+      <Button buttonType="Success" clicked={props.continue}>
         CONTINUE
       </Button>
     </div>
