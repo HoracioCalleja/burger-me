@@ -3,8 +3,9 @@ import classes from "./Burger.module.css";
 import BurgerIngredient from "./BurgerIngredient/BurgerIngredient";
 
 const Burger = (props) => {
+  let transformedIngredients;
 
-  let transformedIngredients = Object.keys(props.ingredients)
+  transformedIngredients = Object.keys(props.ingredients)
     .map((ingredientKey) => {
       return [...Array(props.ingredients[ingredientKey])].map((_, index) => {
         return (
@@ -15,8 +16,6 @@ const Burger = (props) => {
     .reduce((acc, el) => {
       return acc.concat(el);
     }, []);
-
-  console.log(transformedIngredients);
 
   if (transformedIngredients.length < 1) {
     transformedIngredients = <p>Please start adding ingredients!</p>;
