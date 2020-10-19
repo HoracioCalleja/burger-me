@@ -86,6 +86,7 @@ const ContactData = (props) => {
   );
 
   return <div className={classes.ContactData}>{form}</div>;
+  
 };
 
 export default ContactData;
