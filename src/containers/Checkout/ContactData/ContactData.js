@@ -16,9 +16,8 @@ const ContactData = (props) => {
 
   const [loading, setLoading] = useState(false);
 
-  const handleOrder = (e) => {
-    e.preventDefault();
-    console.log(props);
+  const handleOrder = (event) => {
+    event.preventDefault();
     setLoading(true);
     const order = {
       ingredients: props.ingredients,
@@ -36,7 +35,6 @@ const ContactData = (props) => {
     axios.post("/orders.json", order).then((response) => {
       setLoading(false);
       props.history.push("/");
-      console.log(response.data);
     });
   };
 
@@ -86,7 +84,6 @@ const ContactData = (props) => {
   );
 
   return <div className={classes.ContactData}>{form}</div>;
-  
 };
 
 export default ContactData;
