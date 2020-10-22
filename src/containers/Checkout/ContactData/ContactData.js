@@ -3,14 +3,78 @@ import Button from "../../../components/UI/Button/Button";
 import axios from "../../../axios-orders";
 import Spinner from "../../../components/UI/Spinner/Spinner";
 import classes from "./ContactData.module.css";
+import Input from "../../../components/UI/Input/Input";
 
 const ContactData = (props) => {
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
+    name: {
+      elementType: "input",
+      elementConfig: {
+        placeholder: "Your name",
+        type: "text",
+        name: "name",
+        label: "Name",
+        id: "name",
+      },
+      value: "",
+    },
     address: {
-      street: "",
-      postalCode: "",
+      elementType: "input",
+      elementConfig: {
+        placeholder: "Your Address",
+        type: "text",
+        name: "address",
+        label: "Address",
+        id: "address",
+      },
+      value: "",
+    },
+    street: {
+      elementType: "input",
+      elementConfig: {
+        placeholder: "Your Street name",
+        type: "text",
+        name: "street",
+        label: "Street",
+        id: "street",
+      },
+      value: "",
+    },
+    zipcode: {
+      elementType: "input",
+      elementConfig: {
+        placeholder: "Enter the zipcode",
+        type: "text",
+        name: "zip-code",
+        label: "Zip Code",
+        id: "zip-code",
+      },
+      value: "",
+    },
+    country: {
+      elementType: "input",
+      elementConfig: {
+        placeholder: "Enter the Country",
+        type: "text",
+        name: "country",
+        label: "Country",
+        id: "country",
+      },
+      value: "",
+    },
+    deliveryMethod: {
+      elementType: "select",
+      elementConfig: {
+        options: [
+          { value: "fast", displayValue: "Fast" },
+          { value: "normal", displayValue: "Normal" },
+          { value: "cheap", displayValue: "Cheap" },
+        ],
+        name: "delivery-method",
+        label: "Select a delivery method",
+        id: "delivery-method",
+      },
+      value: "",
     },
   });
 
@@ -22,15 +86,6 @@ const ContactData = (props) => {
     const order = {
       ingredients: props.ingredients,
       price: props.price,
-      customer: {
-        name: "Charly García",
-        address: {
-          street: "Olazabal 2331 10b",
-          zipcode: "1421",
-          country: "Argentina",
-        },
-        deliveryMethod: "fastest",
-      },
     };
     axios.post("/orders.json", order).then((response) => {
       setLoading(false);
@@ -38,48 +93,34 @@ const ContactData = (props) => {
     });
   };
 
+  let elementsArray = [];
+
+  for (let element in formData) {
+    elementsArray.push({ id: element, config: formData[element] });
+  }
+
   const form = loading ? (
     <Spinner />
   ) : (
     <>
-      {" "}
       <h4 className={classes.Title}>Enter your Contact Data</h4>
       <form>
-        <label className={classes.Label} htmlFor="name">
-          {" "}
-          Name{" "}
-        </label>
-        <input className={classes.Input} type="text" name="name" id="name" />
-        <label className={classes.Label} htmlFor="email">
-          {" "}
-          Email{" "}
-        </label>
-        <input className={classes.Input} type="text" name="email" id="email" />
-        <label className={classes.Label} htmlFor="street">
-          {" "}
-          Street{" "}
-        </label>
-        <input
-          className={classes.Input}
-          type="text"
-          name="street"
-          id="street"
-        />
-        <label className={classes.Label} htmlFor="postal-code">
-          {" "}
-          Postal Code{" "}
-        </label>
-        <input
-          className={classes.Input}
-          type="number"
-          name="postal-code"
-          id="postal-code"
-        />
+        {elementsArray.map((element) => {
+          return (
+            <Input
+              key={element.id}
+              elementtype={element.config.elementType}
+              value = {element.config.value}
+              elementConfig = {element.config.elementConfig}
+              label = {element.config.elementConfig.label}
+            />
+          );
+        })}
+
         <Button buttonType="Success" clicked={handleOrder}>
-          {" "}
-          ORDER{" "}
+          ORDER
         </Button>
-      </form>{" "}
+      </form>
     </>
   );
 
