@@ -22,7 +22,18 @@
   width: 100%;
 }
 
-.InputElement:foucs{
+.InputElement:focus{
   outline: none;
-  background-color: #ccc;
+  background-color: rgb(127, 241, 104);
+}
+
+.Invalid{
+  outline: rgb(255, 0, 0) solid 1px;
+  background-color: rgb(255, 110, 110);
+  color: white;
+}
+
+.Invalid:focus{
+  outline: rgb(255, 0, 0) solid 1px;
+  background-color: rgb(255, 110, 110);
 }
