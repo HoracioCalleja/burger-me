@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import validator from "validator";
 import Button from "../../../components/UI/Button/Button";
 import axios from "../../../axios-orders";
@@ -28,7 +29,7 @@ const ContactData = (props) => {
         },
       },
       valid: false,
-      touched : false,
+      touched: false,
     },
     address: {
       elementType: "input",
@@ -49,7 +50,7 @@ const ContactData = (props) => {
         },
       },
       valid: false,
-      touched : false,
+      touched: false,
     },
     street: {
       elementType: "input",
@@ -70,7 +71,7 @@ const ContactData = (props) => {
         },
       },
       valid: false,
-      touched : false,
+      touched: false,
     },
     zipcode: {
       elementType: "input",
@@ -92,7 +93,7 @@ const ContactData = (props) => {
         },
       },
       valid: false,
-      touched : false,
+      touched: false,
     },
     country: {
       elementType: "input",
@@ -127,8 +128,8 @@ const ContactData = (props) => {
         id: "delivery-method",
       },
       value: "fast",
-      validation : {},
-      valid : true,
+      validation: {},
+      valid: true,
     },
   });
   const [isFormValid, setFormValid] = useState(false);
@@ -147,7 +148,8 @@ const ContactData = (props) => {
     };
     axios.post("/orders.json", order).then((response) => {
       setLoading(false);
-      props.history.push("/");
+      props.history.push("/"); 
+      
     });
   };
 
@@ -189,7 +191,7 @@ const ContactData = (props) => {
     console.log(updatedFormElement);
     updatedFormData[inputIdentifier] = updatedFormElement;
     let isFormValid = true;
-    for(let identifier in updatedFormData){
+    for (let identifier in updatedFormData) {
       isFormValid = updatedFormData[identifier].valid && isFormValid;
     }
     setFormValid(isFormValid);
@@ -215,15 +217,17 @@ const ContactData = (props) => {
               value={element.config.value}
               elementConfig={element.config.elementConfig}
               label={element.config.elementConfig.label}
-              touched = {element.config.touched}
-              valid = {element.config.valid}
-              shouldValidate = {element.config.validation}
+              touched={element.config.touched}
+              valid={element.config.valid}
+              shouldValidate={element.config.validation}
               changed={(event) => inputChangedHandler(event, element.id)}
             />
           );
         })}
 
-        <Button buttonType="Success" disabled={!isFormValid} >ORDER</Button>
+        <Button buttonType="Success" disabled={!isFormValid}>
+          ORDER
+        </Button>
       </form>
     </>
   );
@@ -231,4 +235,12 @@ const ContactData = (props) => {
   return <div className={classes.ContactData}>{form}</div>;
 };
 
-export default ContactData;
+const mapStateToProps = (state) => {
+  return {
+    ingredients: state.ingredients,
+    price: state.price,
+  };
+};
+
+
+export default connect(mapStateToProps)(ContactData);
