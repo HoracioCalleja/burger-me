@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import * as actionTypes from "../../store/actions";
+import {
+  addIngredient,
+  removeIngredient,
+  clearOrder,
+} from "../../store/actions/";
 import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
 import Modal from "../../components/UI/Modal/Modal";
@@ -129,10 +133,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onIngredientAdded: (ingredientName) =>
-      dispatch({ type: actionTypes.ADD_INGREDIENT, ingredientName }),
+      dispatch(addIngredient(ingredientName)),
     onIngredientRemoved: (ingredientName) =>
-      dispatch({ type: actionTypes.REMOVE_INGREDIENT, ingredientName }),
-    onClearedOrder: () => dispatch({ type: actionTypes.CLEAR_ORDER }),
+      dispatch(removeIngredient(ingredientName)),
+    onClearedOrder: () => dispatch(clearOrder()),
   };
 };
 
