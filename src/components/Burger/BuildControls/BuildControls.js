@@ -33,7 +33,9 @@ const BuildControls = (props) => {
       </button>
       <button 
       className={classes.ClearButton}
-      onClick={props.clearOrder}>
+      onClick={props.clearOrder}
+      disabled = {props.price <=4 }
+      >
         CLEAR ORDER
       </button>
     </div>

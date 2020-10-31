@@ -28,6 +28,13 @@
   color: rgb(0, 0, 0);
 }
 
+.ClearButton:disabled {
+  background-color: #C7C6C6;
+  cursor: not-allowed;
+  border: 1px solid #ccc;
+  color: #888888;
+}
+
 .Price{
   font-size: 1.2rem;
   margin: 25px 0;
@@ -61,6 +68,9 @@
 }
 
 .OrderButton:not(:disabled) {
+  animation: enable 0.3s linear;
+}
+.ClearButton:not(:disabled) {
   animation: enable 0.3s linear;
 }
 

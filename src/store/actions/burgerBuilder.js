@@ -1,4 +1,5 @@
 import * as actionTypes from "./actionTypes";
+import axiosInstance from "../../axios-orders";
 
 export const addIngredient = (ingredientName) => {
   return {
@@ -15,7 +16,45 @@ export const removeIngredient = (ingredientName) => {
 };
 
 export const clearOrder = () => {
+  initIngredients();
+};
+
+const setIngredients = (ingredients) => {
+  console.log(
+    "BURGERBUILDER - SETINGREDIENTS(ingredients) ->",
+    console.log(ingredients)
+  );
   return {
-    type: actionTypes.CLEAR_ORDER,
+    type: actionTypes.SET_INGREDIENTS,
+    ingredients,
+  };
+};
+
+export const fetchIngredientsFailed = () => {
+  return {
+    type: actionTypes.FETCH_INGREDIENTS_FAILED,
+  };
+};
+
+export const initIngredients = () => {
+  return (dispatch) => {
+    dispatch(loading(true));
+    axiosInstance
+      .get("/ingredients.json")
+      .then((response) => {
+        dispatch(setIngredients(response.data));
+        dispatch(loading(false));
+      })
+      .catch((error) => {
+        dispatch(loading(true));
+        dispatch(fetchIngredientsFailed());
+      });
+  };
+};
+
+export const loading = (isLoading) => {
+  return {
+    type: actionTypes.LOADING,
+    isLoading,
   };
 };
