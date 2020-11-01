@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import CheckoutSummary from "../../components/Order/CheckoutSummary/CheckoutSummary";
 import ContactData from "./ContactData/ContactData";
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 
 const Checkout = (props) => {
   console.log(props);
@@ -14,24 +14,31 @@ const Checkout = (props) => {
     props.history.replace("/checkout/contact-data");
   };
 
-  return (
-    <div>
-      <CheckoutSummary
-        ingredients={props.ingredients}
-        cancel={checkoutCancelHandler}
-        continue={checkoutContinueHandler}
-      />
-      <Route
-        path={props.match.path + "/contact-data"}
-        component={ContactData}
-      />
-    </div>
-  );
+  let summary = <Redirect to="/" />;
+
+  if (props.ingredients) {
+    summary = (
+      <div>
+        <CheckoutSummary
+          ingredients={props.ingredients}
+          cancel={checkoutCancelHandler}
+          continue={checkoutContinueHandler}
+        />
+        <Route
+          path={props.match.path + "/contact-data"}
+          component={ContactData}
+        />
+      </div>
+    );
+  }
+
+  return summary;
+
 };
 
 const mapStateToProps = (state) => {
   return {
-    ingredients: state.ingredients,
+    ingredients: state.reducerBurguer.ingredients,
   };
 };
 

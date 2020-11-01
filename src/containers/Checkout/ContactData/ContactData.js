@@ -6,9 +6,11 @@ import axios from "../../../axios-orders";
 import Spinner from "../../../components/UI/Spinner/Spinner";
 import classes from "./ContactData.module.css";
 import Input from "../../../components/UI/Input/Input";
+import withErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler";
+import * as actions from "../../../store/actions/";
 
 const ContactData = (props) => {
-  const [loading, setLoading] = useState(false);
+  console.log("Props at ContactData", props);
   const [formData, setFormData] = useState({
     name: {
       elementType: "input",
@@ -140,17 +142,12 @@ const ContactData = (props) => {
     for (let key in formData) {
       userData[key] = formData[key].value;
     }
-    setLoading(true);
     const order = {
       ingredients: props.ingredients,
       price: props.price,
       userData,
     };
-    axios.post("/orders.json", order).then((response) => {
-      setLoading(false);
-      props.history.push("/"); 
-      
-    });
+    props.onSubmitOrder(order);
   };
 
   const formInputsValidation = (value, rules) => {
@@ -203,7 +200,7 @@ const ContactData = (props) => {
     elementsArray.push({ id: element, config: formData[element] });
   }
 
-  const form = loading ? (
+  const form = props.loading ? (
     <Spinner />
   ) : (
     <>
@@ -237,10 +234,19 @@ const ContactData = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    ingredients: state.ingredients,
-    price: state.price,
+    ingredients: state.reducerOrder.ingredients,
+    price: state.reducerOrder.price,
+    loading: state.reducerOrder.loading,
   };
 };
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSubmitOrder: (order) => dispatch(actions.submitOrder(order)),
+  };
+};
 
-export default connect(mapStateToProps)(ContactData);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withErrorHandler(ContactData, axios));
