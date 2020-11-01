@@ -20,10 +20,7 @@ export const clearOrder = () => {
 };
 
 const setIngredients = (ingredients) => {
-  console.log(
-    "BURGERBUILDER - SETINGREDIENTS(ingredients) ->",
-    console.log(ingredients)
-  );
+
   return {
     type: actionTypes.SET_INGREDIENTS,
     ingredients,

@@ -3,7 +3,7 @@ import axiosInstance from "../../axios-orders";
 
 export const orderSubmited = (orderId, orderData) => {
   return {
-    type: actionTypes.ORDER_SUBMITED,
+    type: actionTypes.ORDER_SUBMIT_SUCCESS,
     orderId,
     orderData,
   };
@@ -11,7 +11,7 @@ export const orderSubmited = (orderId, orderData) => {
 
 export const orderSubmitedFailed = (error) => {
   return {
-    type: actionTypes.ORDER_SUBMITED_FAILED,
+    type: actionTypes.ORDER_SUBMIT_FAILED,
     error,
   };
 };
@@ -29,10 +29,16 @@ export const submitOrder = (orderData) => {
     axiosInstance
       .post("/orders.json", orderData)
       .then((response) => {
-        dispatch(orderSubmited(response.data, orderData));
+        dispatch(orderSubmited(response.data.name, orderData));
       })
       .catch((error) => {
         dispatch(orderSubmitedFailed(error));
       });
   };
 };
+
+
+
+export const getOrders = () => {
+  
+} 

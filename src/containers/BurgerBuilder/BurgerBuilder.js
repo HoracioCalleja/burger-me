@@ -88,10 +88,11 @@ class BurgerBuilder extends Component {
           totalPrice={this.props.price}
         />
       );
-    }
+    } 
 
     if (this.props.loading) {
       orderSummary = <Spinner />;
+      burger = <Spinner />
     }
     return (
       <>

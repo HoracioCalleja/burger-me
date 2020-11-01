@@ -7,14 +7,14 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.ORDER_SUBMITED: {
+    case actionTypes.ORDER_SUBMIT_SUCCESS: {
       const newOrder = { ...action.orderData, id: action.orderId };
       return {
         ...state,
         orders: state.orders.concat(newOrder),
       };
     }
-    case actionTypes.ORDER_SUBMITED_FAILED: {
+    case actionTypes.ORDER_SUBMIT_FAILED: {
       return {};
     }
     case actionTypes.ORDER_SUBMIT_STARTED: {

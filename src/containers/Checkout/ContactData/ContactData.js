@@ -234,8 +234,8 @@ const ContactData = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    ingredients: state.reducerOrder.ingredients,
-    price: state.reducerOrder.price,
+    ingredients: state.reducerBurguer.ingredients,
+    price: state.reducerBurguer.price,
     loading: state.reducerOrder.loading,
   };
 };

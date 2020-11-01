@@ -12,13 +12,13 @@ import { BrowserRouter } from "react-router-dom";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const reducers = {
+const rootReducer = combineReducers({
   reducerBurguer,
   reducerOrder,
-};
+});
 
 const store = createStore(
-  combineReducers(reducers),
+  rootReducer,
   composeEnhancers(applyMiddleware(thunk))
 );
 
