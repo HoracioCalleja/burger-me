@@ -10,7 +10,6 @@ import withErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler";
 import * as actions from "../../../store/actions/";
 
 const ContactData = (props) => {
-  console.log("Props at ContactData", props);
   const [formData, setFormData] = useState({
     name: {
       elementType: "input",
@@ -234,8 +233,8 @@ const ContactData = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    ingredients: state.reducerBurguer.ingredients,
-    price: state.reducerBurguer.price,
+    ingredients: state.reducerBurger.ingredients,
+    price: state.reducerBurger.price,
     loading: state.reducerOrder.loading,
   };
 };

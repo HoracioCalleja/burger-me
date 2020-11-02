@@ -39,22 +39,24 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         ingredients: {
-          salad : action.ingredients.salad,
-          cheese : action.ingredients.cheese,
-          bacon : action.ingredients.bacon,
-          meat : action.ingredients.meat,
+          salad: action.ingredients.salad,
+          cheese: action.ingredients.cheese,
+          bacon: action.ingredients.bacon,
+          meat: action.ingredients.meat,
         },
         price: INITIAL_PRICE,
+        loading: false,
       };
     case actionTypes.FETCH_INGREDIENTS_FAILED:
       return {
         ...state,
         error: true,
+        loading: false,
       };
     case actionTypes.LOADING:
       return {
         ...state,
-        loading: action.isLoading,
+        loading: true,
       };
     default:
       return state;

@@ -20,7 +20,6 @@ export const clearOrder = () => {
 };
 
 const setIngredients = (ingredients) => {
-
   return {
     type: actionTypes.SET_INGREDIENTS,
     ingredients,
@@ -40,18 +39,15 @@ export const initIngredients = () => {
       .get("/ingredients.json")
       .then((response) => {
         dispatch(setIngredients(response.data));
-        dispatch(loading(false));
       })
       .catch((error) => {
-        dispatch(loading(true));
         dispatch(fetchIngredientsFailed());
       });
   };
 };
 
-export const loading = (isLoading) => {
+export const loading = () => {
   return {
     type: actionTypes.LOADING,
-    isLoading,
   };
 };
