@@ -4,6 +4,12 @@
   margin : auto;
 }
 
+.Title {
+  margin : 90px auto;
+  color: #eb9545;
+  text-shadow: 2px 2px rgb(0, 0, 0);
+}
+
 .BurgerContainer {
   width: 100%;
 }

@@ -23,7 +23,7 @@ const Orders = (props) => {
     );
   });
 
-  return <div>{props.loading ? <Spinner /> : orderList}</div>;
+  return <div style={{marginTop:'80px'}}>{props.loading ? <Spinner /> : orderList}</div>;
 };
 
 const mapStateToProps = (state) => {
