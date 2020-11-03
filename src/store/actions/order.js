@@ -3,7 +3,7 @@ import axiosInstance from "../../axios-orders";
 
 export const orderSubmitSucceded = (orderId, orderData) => {
   return {
-    type: actionTypes.ORDER_SUBMIT_SUCCEEDED,
+    type: actionTypes.ORDER_SUBMIT_SUCCESS,
     orderId,
     orderData,
   };
@@ -11,14 +11,14 @@ export const orderSubmitSucceded = (orderId, orderData) => {
 
 export const orderSubmitedFailed = (error) => {
   return {
-    type: actionTypes.ORDER_SUBMIT_FAILED,
+    type: actionTypes.ORDER_SUBMIT_FAIL,
     error,
   };
 };
 
 const orderSubmitStarted = () => {
   return {
-    type: actionTypes.ORDER_SUBMIT_STARTED,
+    type: actionTypes.ORDER_SUBMIT_START,
   };
 };
 
@@ -46,20 +46,20 @@ export const orderInit = () => {
 
 const fetchOrdersSucceded = (orders) => {
   return {
-    type: actionTypes.FETCH_ORDERS_SUCCEDED,
+    type: actionTypes.FETCH_ORDERS_SUCCESS,
     orders,
   };
 };
 
 const fetchOrdersStarted = () => {
   return {
-    type: actionTypes.FETCH_ORDERS_STARTED,
+    type: actionTypes.FETCH_ORDERS_START,
   };
 };
 
 const fetchOrdersFailed = (error) => {
   return {
-    type: actionTypes.FETCH_ORDERS_FAILED,
+    type: actionTypes.FETCH_ORDERS_FAIL,
     error,
   };
 };

@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import Input from "../../components/UI/Input/Input";
 import Button from "../../components/UI/Button/Button";
+import Spinner from "../../components/UI/Spinner/Spinner";
 import classes from "./Auth.module.css";
 import validator from "validator";
+import { connect } from "react-redux";
+import * as actions from "../../store/actions/";
 
-const Auth = () => {
+const Auth = (props) => {
   const [formData, setFormData] = useState({
     email: {
       elementType: "input",
@@ -45,6 +48,8 @@ const Auth = () => {
       touched: false,
     },
   });
+
+  const [isSignUp, setIsSignUp] = useState(true);
 
   const formInputsValidation = (value, rules) => {
     let isValid = true;
@@ -112,12 +117,53 @@ const Auth = () => {
     );
   });
 
-  return (
-    <form className={classes.Auth}>
+  const handleAuthMethod = (event) => {
+    event.preventDefault();
+    setIsSignUp((prevState) => {
+      return (prevState = !prevState);
+    });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    props.onAuth(formData.email.value, formData.password.value, isSignUp);
+  };
+
+  const form = props.loading ? (
+    <Spinner />
+  ) : (
+    <>
+      <h1>{isSignUp ? "SIGN UP" : "SIGN IN"}</h1>
       {elements}
       <Button buttonType="Success">SUBMIT</Button>
+      <Button clicked={handleAuthMethod} buttonType="Danger">
+        SWITCH TO {isSignUp ? "SIGN IN" : "SIGN UP"}{" "}
+      </Button>
+    </>
+  );
+
+  return (
+    <form className={classes.Auth} onSubmit={handleSubmit}>
+      {form}
     </form>
   );
 };
 
-export default Auth;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAuth: (email, password, isSignUp) =>
+      dispatch(actions.auth(email, password, isSignUp)),
+  };
+};
+
+const mapStateToPops = (state) => {
+  const { error, token, loading, userId } = state.reducerAuth;
+  return {
+    error,
+    token,
+    loading,
+    userId,
+  };
+};
+
+export default connect(mapStateToPops, mapDispatchToProps)(Auth);

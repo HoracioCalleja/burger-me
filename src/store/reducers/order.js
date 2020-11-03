@@ -11,17 +11,17 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.ORDER_INIT:
       return orderInit(state, action);
-    case actionTypes.ORDER_SUBMIT_SUCCEEDED:
+    case actionTypes.ORDER_SUBMIT_SUCCESS:
       return orderSubmitSucceded(state, action);
-    case actionTypes.ORDER_SUBMIT_FAILED:
+    case actionTypes.ORDER_SUBMIT_FAIL:
       return orderSubmitFailed(state, action);
-    case actionTypes.ORDER_SUBMIT_STARTED:
+    case actionTypes.ORDER_SUBMIT_START:
       return orderSubmitStarted(state, action);
-    case actionTypes.FETCH_ORDERS_STARTED:
+    case actionTypes.FETCH_ORDERS_START:
       return fetchOrdersStarted(state, action);
-    case actionTypes.FETCH_ORDERS_SUCCEDED:
+    case actionTypes.FETCH_ORDERS_SUCCESS:
       return fetchOrdersSucceded(state, action);
-    case actionTypes.FETCH_ORDERS_FAILED:
+    case actionTypes.FETCH_ORDERS_FAIL:
       return fetchOrdersFailed(state, action);
     default:
       return state;
