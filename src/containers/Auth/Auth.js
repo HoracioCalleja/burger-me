@@ -129,13 +129,13 @@ const Auth = (props) => {
     props.onAuth(formData.email.value, formData.password.value, isSignUp);
   };
 
-  const error = props.error ? <p className={classes.Error}>{props.error}</p> : null;
+  const error = props.error ? (
+    <p className={classes.Error}>{props.error}</p>
+  ) : null;
 
-  const form = props.loading ? (
-    <Spinner />
-  ) : (
+  let form = (
     <>
-      <h1 className={classes.Title} >{isSignUp ? "SIGN UP" : "SIGN IN"}</h1>
+      <h1 className={classes.Title}>{isSignUp ? "SIGN UP" : "SIGN IN"}</h1>
       {error}
       {elements}
       <Button buttonType="Success">SUBMIT</Button>
@@ -144,6 +144,10 @@ const Auth = (props) => {
       </Button>
     </>
   );
+
+  if (props.loading) {
+    form = <Spinner />;
+  }
 
   return (
     <form className={classes.Auth} onSubmit={handleSubmit}>

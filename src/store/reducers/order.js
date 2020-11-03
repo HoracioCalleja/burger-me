@@ -12,23 +12,23 @@ const reducer = (state = initialState, action) => {
     case actionTypes.ORDER_INIT:
       return orderInit(state, action);
     case actionTypes.ORDER_SUBMIT_SUCCESS:
-      return orderSubmitSucceded(state, action);
+      return orderSubmitSuccess(state, action);
     case actionTypes.ORDER_SUBMIT_FAIL:
-      return orderSubmitFailed(state, action);
+      return orderSubmitFail(state, action);
     case actionTypes.ORDER_SUBMIT_START:
-      return orderSubmitStarted(state, action);
+      return orderSubmitStart(state, action);
     case actionTypes.FETCH_ORDERS_START:
-      return fetchOrdersStarted(state, action);
+      return fetchOrdersStart(state, action);
     case actionTypes.FETCH_ORDERS_SUCCESS:
-      return fetchOrdersSucceded(state, action);
+      return fetchOrdersSuccess(state, action);
     case actionTypes.FETCH_ORDERS_FAIL:
-      return fetchOrdersFailed(state, action);
+      return fetchOrdersFail(state, action);
     default:
       return state;
   }
 };
 
-const orderSubmitSucceded = (state, action) => {
+const orderSubmitSuccess = (state, action) => {
   const newOrder = { ...action.orderData, id: action.orderId };
   const updatedAttributes = {
     orders: state.orders.concat(newOrder),
@@ -42,19 +42,19 @@ const orderInit = (state, action) => {
   return updateObject(state, { purchased: false });
 };
 
-const orderSubmitFailed = (state, action) => {
+const orderSubmitFail = (state, action) => {
   return updateObject(state, { loading: false });
 };
 
-const orderSubmitStarted = (state, action) => {
+const orderSubmitStart = (state, action) => {
   return updateObject(state, { loading: true });
 };
 
-const fetchOrdersStarted = (state, action) => {
+const fetchOrdersStart = (state, action) => {
   return updateObject(state, { loading: true });
 };
 
-const fetchOrdersSucceded = (state, action) => {
+const fetchOrdersSuccess = (state, action) => {
   const updatedAttributes = {
     orders: action.orders,
     loading: false,
@@ -62,7 +62,7 @@ const fetchOrdersSucceded = (state, action) => {
   return updateObject(state, updatedAttributes);
 };
 
-const fetchOrdersFailed = (state, action) => {
+const fetchOrdersFail= (state, action) => {
   return updateObject(state, { loading: false });
 };
 

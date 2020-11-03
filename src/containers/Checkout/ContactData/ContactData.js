@@ -146,7 +146,7 @@ const ContactData = (props) => {
       price: props.price,
       userData,
     };
-    props.onSubmitOrder(order);
+    props.onSubmitOrder(order, props.token);
   };
 
   const formInputsValidation = (value, rules) => {
@@ -236,12 +236,14 @@ const mapStateToProps = (state) => {
     ingredients: state.reducerBurger.ingredients,
     price: state.reducerBurger.price,
     loading: state.reducerOrder.loading,
+    token: state.reducerAuth.token,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSubmitOrder: (order) => dispatch(actions.submitOrder(order)),
+    onSubmitOrder: (order, token) =>
+      dispatch(actions.submitOrder(order, token)),
   };
 };
 

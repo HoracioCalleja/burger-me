@@ -22,17 +22,17 @@ const orderSubmitStarted = () => {
   };
 };
 
-export const submitOrder = (orderData) => {
+export const submitOrder = (orderData, token) => {
   return (dispatch) => {
     dispatch(orderSubmitStarted());
     axiosInstance
-      .post("orders.json", orderData)
+      .post("orders.json?auth=" + token, orderData)
       .then((response) => {
-        console.log('Response at post...', response)
+        console.log("Response at post...", response);
         dispatch(orderSubmitSucceded(response.data.name, orderData));
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error);
         dispatch(orderSubmitedFailed(error));
       });
   };
@@ -44,40 +44,40 @@ export const orderInit = () => {
   };
 };
 
-const fetchOrdersSucceded = (orders) => {
+const fetchOrdersSuccess = (orders) => {
   return {
     type: actionTypes.FETCH_ORDERS_SUCCESS,
     orders,
   };
 };
 
-const fetchOrdersStarted = () => {
+const fetchOrdersStart = () => {
   return {
     type: actionTypes.FETCH_ORDERS_START,
   };
 };
 
-const fetchOrdersFailed = (error) => {
+const fetchOrdersFail = (error) => {
   return {
     type: actionTypes.FETCH_ORDERS_FAIL,
     error,
   };
 };
 
-export const fetchOrders = () => {
+export const fetchOrders = (token) => {
   return (dispatch) => {
-    dispatch(fetchOrdersStarted());
+    dispatch(fetchOrdersStart());
     axiosInstance
-      .get("orders.json")
+      .get("orders.json?auth=" + token)
       .then((res) => {
         const orders = [];
         for (let key in res.data) {
           orders.push({ ...res.data[key], id: key });
         }
-        dispatch(fetchOrdersSucceded(orders));
+        dispatch(fetchOrdersSuccess(orders));
       })
       .catch((e) => {
-        fetchOrdersFailed();
+        dispatch(fetchOrdersFail());
       });
   };
 };
