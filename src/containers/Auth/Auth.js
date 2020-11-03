@@ -129,11 +129,14 @@ const Auth = (props) => {
     props.onAuth(formData.email.value, formData.password.value, isSignUp);
   };
 
+  const error = props.error ? <p className={classes.Error}>{props.error}</p> : null;
+
   const form = props.loading ? (
     <Spinner />
   ) : (
     <>
-      <h1>{isSignUp ? "SIGN UP" : "SIGN IN"}</h1>
+      <h1 className={classes.Title} >{isSignUp ? "SIGN UP" : "SIGN IN"}</h1>
+      {error}
       {elements}
       <Button buttonType="Success">SUBMIT</Button>
       <Button clicked={handleAuthMethod} buttonType="Danger">
