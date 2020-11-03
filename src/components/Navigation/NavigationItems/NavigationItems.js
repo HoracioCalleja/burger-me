@@ -11,6 +11,9 @@ const NavigationItems = (props) => {
       <NavigationItem link={"/orders"} clicked={props.onItemClicked}>
         Orders
       </NavigationItem>
+      <NavigationItem link={"/authentication"} clicked={props.onItemClicked}>
+        Authentication
+      </NavigationItem>
     </ul>
   );
 };
