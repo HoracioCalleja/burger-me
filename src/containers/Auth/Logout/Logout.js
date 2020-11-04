@@ -8,7 +8,7 @@ const Logout = (props) => {
   const { onLogout } = props;
 
   useEffect(() => {
-    let confirmation = window.confirm("¿Do you want to logout");
+    let confirmation = window.confirm("¿Do you want to logout?");
     if (confirmation) {
       onLogout();
     }

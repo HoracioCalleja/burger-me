@@ -23,6 +23,7 @@ const authFail = (error) => {
 };
 
 export const logout = () => {
+  removeLocalStorageTokens();
   return {
     type: actionTypes.LOGOUT,
   };
@@ -37,7 +38,6 @@ const willLogOut = (expirationTime) => {
 };
 
 export const auth = (email, password, isSignUp) => {
-  console.log(email, password, isSignUp);
   return (dispatch) => {
     dispatch(authStart());
     const authData = {
@@ -52,8 +52,11 @@ export const auth = (email, password, isSignUp) => {
     axios
       .post(url, authData)
       .then((response) => {
-        console.log(response.data);
         const { idToken, localId, expiresIn } = response.data;
+        const expirationDate = new Date(
+          new Date().getTime() + expiresIn * 1000
+        );
+        setLocalStorageTokens(idToken, localId, expirationDate);
         dispatch(authSuccess(idToken, localId));
         dispatch(willLogOut(expiresIn));
       })
@@ -67,7 +70,39 @@ export const auth = (email, password, isSignUp) => {
 
 export const setRedirectAuthPath = (path) => {
   return {
-    type : actionTypes.SET_REDIRECT_AUTH_PATH,
+    type: actionTypes.SET_REDIRECT_AUTH_PATH,
     path,
-  }
-}
+  };
+};
+
+export const checkTokens = () => {
+  return (dispatch) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      dispatch(logout());
+    } else {
+      const expirationDate = new Date(localStorage.getItem("expirationDate"));
+      if (expirationDate <= new Date()) {
+        console.log('logginout')
+        dispatch(logout());
+      } else {
+        const userId = localStorage.getItem("userId");
+        const expiresIn = (expirationDate.getTime() - new Date().getTime()) / 1000;
+        dispatch(authSuccess(token, userId));
+        dispatch(willLogOut(expiresIn));
+      }
+    }
+  };
+};
+
+const setLocalStorageTokens = (token, localId, expirationDate) => {
+  localStorage.setItem("token", token);
+  localStorage.setItem("userId", localId);
+  localStorage.setItem("expirationDate", expirationDate);
+};
+
+const removeLocalStorageTokens = () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("userId");
+  localStorage.removeItem("expirationDate");
+};

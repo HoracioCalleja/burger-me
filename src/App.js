@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Layout from "./hoc/Layout/Layout";
 import BurgerBuilder from "./containers/BurgerBuilder/BurgerBuilder";
 import Checkout from "./containers/Checkout/Checkout";
 import Orders from "./containers/Orders/Orders";
-import Auth from './containers/Auth/Auth';
-import Logout from './containers/Auth/Logout/Logout';
-import { Route } from "react-router-dom";
+import Auth from "./containers/Auth/Auth";
+import Logout from "./containers/Auth/Logout/Logout";
+import { Route, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import * as actions from "./store/actions/";
 
-function App() {
+function App(props) {
+  const { onCheckTokens } = props;
+
+  useEffect(() => {
+    onCheckTokens();
+  }, [onCheckTokens]);
+
   return (
     <div>
       <Layout>
@@ -21,4 +29,10 @@ function App() {
   );
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onCheckTokens: () => dispatch(actions.checkTokens()),
+  };
+};
+
+export default withRouter(connect(null, mapDispatchToProps)(App));
