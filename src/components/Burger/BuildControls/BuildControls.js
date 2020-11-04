@@ -29,7 +29,7 @@ const BuildControls = (props) => {
       disabled = {!props.purchasable}
       onClick = {props.summary}
       >
-      ORDER NOW
+      {props.isAuth ? "ORDER NOW" : "LOGIN TO CONTINUE"}
       </button>
       <button 
       className={classes.ClearButton}

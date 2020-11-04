@@ -29,7 +29,12 @@ class BurgerBuilder extends Component {
   }
 
   showSummaryHandler = () => {
-    this.setState({ showSummary: true });
+    if (this.props.isAuthenticated) {
+      this.setState({ showSummary: true });
+    } else {
+      this.props.onSetRedirectAuthPath('/checkout')
+      this.props.history.push("/authentication");
+    }
   };
 
   closeSummaryHanlder = () => {
@@ -55,7 +60,7 @@ class BurgerBuilder extends Component {
 
     let burger = this.props.error ? (
       <p>Ingredients cant be loaded</p>
-    ) :  (
+    ) : (
       <Spinner />
     );
     let orderSummary = null;
@@ -70,6 +75,7 @@ class BurgerBuilder extends Component {
             disabled={disableInfo}
             purchasable={this.updatePurchaseState(this.props.price)}
             clearOrder={this.props.onInitIngredients}
+            isAuth={this.props.isAuthenticated}
             summary={this.showSummaryHandler}
           />
         </>
@@ -83,11 +89,11 @@ class BurgerBuilder extends Component {
           totalPrice={this.props.price}
         />
       );
-    } 
+    }
 
     if (this.props.loading) {
       orderSummary = <Spinner />;
-      burger = <Spinner />
+      burger = <Spinner />;
     }
     return (
       <>
@@ -108,7 +114,8 @@ const mapStateToProps = (state) => {
     ingredients: state.reducerBurger.ingredients,
     price: state.reducerBurger.price,
     error: state.reducerBurger.error,
-    loading : state.reducerBurger.loading
+    loading: state.reducerBurger.loading,
+    isAuthenticated: state.reducerAuth.token !== null,
   };
 };
 
@@ -119,7 +126,9 @@ const mapDispatchToProps = (dispatch) => {
     onIngredientRemoved: (ingredientName) =>
       dispatch(actions.removeIngredient(ingredientName)),
     onInitIngredients: () => dispatch(actions.initIngredients()),
-    onInitPurchase : () => dispatch(actions.orderInit()),
+    onInitPurchase: () => dispatch(actions.orderInit()),
+    onSetRedirectAuthPath: (path) =>
+      dispatch(actions.setRedirectAuthPath(path)),
   };
 };
 

@@ -6,4 +6,4 @@ export {
 
 export { submitOrder, orderInit, fetchOrders } from "./order";
 
-export { auth } from './auth';
+export { auth, logout , setRedirectAuthPath} from './auth';

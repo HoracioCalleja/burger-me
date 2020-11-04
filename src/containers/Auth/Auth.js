@@ -1,13 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Input from "../../components/UI/Input/Input";
 import Button from "../../components/UI/Button/Button";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import classes from "./Auth.module.css";
 import validator from "validator";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/";
 
 const Auth = (props) => {
+  useEffect(() => {
+    if (!props.buildingBurger && props.authRedirectPath !== "/") {
+      props.setRedirectAuthPath("/");
+    }
+  });
+
   const [formData, setFormData] = useState({
     email: {
       elementType: "input",
@@ -135,12 +142,12 @@ const Auth = (props) => {
 
   let form = (
     <>
-      <h1 className={classes.Title}>{isSignUp ? "SIGN UP" : "SIGN IN"}</h1>
+      <h1 className={classes.Title}>{isSignUp ? "SIGN UP" : "LOGIN"}</h1>
       {error}
       {elements}
       <Button buttonType="Success">SUBMIT</Button>
       <Button clicked={handleAuthMethod} buttonType="Danger">
-        SWITCH TO {isSignUp ? "SIGN IN" : "SIGN UP"}{" "}
+        SWITCH TO {isSignUp ? "LOGIN" : "SIGN UP"}{" "}
       </Button>
     </>
   );
@@ -149,8 +156,14 @@ const Auth = (props) => {
     form = <Spinner />;
   }
 
+  let authRedirect = null;
+  if (props.isAuthenticated) {
+    authRedirect = <Redirect to={props.authRedirectPath} />;
+  }
+
   return (
     <form className={classes.Auth} onSubmit={handleSubmit}>
+      {authRedirect}
       {form}
     </form>
   );
@@ -160,16 +173,21 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onAuth: (email, password, isSignUp) =>
       dispatch(actions.auth(email, password, isSignUp)),
+    onSetRedirectAuthPath: (path) =>
+      dispatch(actions.setRedirectAuthPath(path)),
   };
 };
 
 const mapStateToPops = (state) => {
-  const { error, token, loading, userId } = state.reducerAuth;
+  const { error, token, loading, userId, authRedirectPath } = state.reducerAuth;
   return {
     error,
     token,
     loading,
     userId,
+    isAuthenticated: token !== null,
+    authRedirectPath,
+    buildingBurger: state.reducerBurger.building,
   };
 };
 

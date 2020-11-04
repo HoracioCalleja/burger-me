@@ -1,6 +1,7 @@
 import React from "react";
 import classes from "./NavigationItems.module.css";
 import NavigationItem from "../NavigationItems/NavigationItem/NavigationItem";
+import { connect } from "react-redux";
 
 const NavigationItems = (props) => {
   return (
@@ -8,14 +9,28 @@ const NavigationItems = (props) => {
       <NavigationItem link={"/"} exact clicked={props.onItemClicked}>
         Burger Builder
       </NavigationItem>
-      <NavigationItem link={"/orders"} clicked={props.onItemClicked}>
-        Orders
-      </NavigationItem>
-      <NavigationItem link={"/authentication"} clicked={props.onItemClicked}>
-        Authentication
-      </NavigationItem>
+      {props.isAuthenticated ? (
+        <>
+          <NavigationItem link={"/orders"} clicked={props.onItemClicked}>
+            Orders
+          </NavigationItem>
+          <NavigationItem link={"/logout"} clicked={props.onItemClicked}>
+            Logout
+          </NavigationItem>
+        </>
+      ) : (
+        <NavigationItem link={"/authentication"} clicked={props.onItemClicked}>
+          Authentication
+        </NavigationItem>
+      )}
     </ul>
   );
 };
 
-export default NavigationItems;
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: state.reducerAuth.token !== null,
+  };
+};
+
+export default connect(mapStateToProps)(NavigationItems);

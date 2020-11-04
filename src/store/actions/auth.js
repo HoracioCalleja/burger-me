@@ -22,7 +22,7 @@ const authFail = (error) => {
   };
 };
 
-const logout = () => {
+export const logout = () => {
   return {
     type: actionTypes.LOGOUT,
   };
@@ -64,3 +64,10 @@ export const auth = (email, password, isSignUp) => {
       });
   };
 };
+
+export const setRedirectAuthPath = (path) => {
+  return {
+    type : actionTypes.SET_REDIRECT_AUTH_PATH,
+    path,
+  }
+}
