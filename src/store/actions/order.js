@@ -64,11 +64,12 @@ const fetchOrdersFail = (error) => {
   };
 };
 
-export const fetchOrders = (token) => {
+export const fetchOrders = (token, userId) => {
   return (dispatch) => {
     dispatch(fetchOrdersStart());
+    const query = '?auth=' + token + '&orderBy="userId"&equalTo="' + userId + '"';
     axiosInstance
-      .get("orders.json?auth=" + token)
+      .get("orders.json" + query)
       .then((res) => {
         const orders = [];
         for (let key in res.data) {

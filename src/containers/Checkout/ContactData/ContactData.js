@@ -141,12 +141,13 @@ const ContactData = (props) => {
     for (let key in formData) {
       userData[key] = formData[key].value;
     }
-    const order = {
+    const orderData = {
       ingredients: props.ingredients,
       price: props.price,
       userData,
+      userId : props.userId
     };
-    props.onSubmitOrder(order, props.token);
+    props.onSubmitOrder(orderData, props.token);
   };
 
   const formInputsValidation = (value, rules) => {
@@ -237,6 +238,8 @@ const mapStateToProps = (state) => {
     price: state.reducerBurger.price,
     loading: state.reducerOrder.loading,
     token: state.reducerAuth.token,
+    userId: state.reducerAuth.userId,
+
   };
 };
 

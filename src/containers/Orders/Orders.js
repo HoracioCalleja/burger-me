@@ -10,8 +10,8 @@ const Orders = (props) => {
   const { onFetchOrders } = props;
 
   useEffect(() => {
-    onFetchOrders(props.token);
-  }, [onFetchOrders, props.token]);
+    onFetchOrders(props.token, props.userId);
+  }, [onFetchOrders, props.token, props.userId]);
 
   const orderList = props.orders.map((order) => {
     return (
@@ -31,12 +31,13 @@ const mapStateToProps = (state) => {
     orders: state.reducerOrder.orders,
     loading: state.reducerOrder.loading,
     token : state.reducerAuth.token,
+    userId : state.reducerAuth.userId,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onFetchOrders: (token) => dispatch(actions.fetchOrders(token)),
+    onFetchOrders: (token, userId) => dispatch(actions.fetchOrders(token, userId)),
   };
 };
 
