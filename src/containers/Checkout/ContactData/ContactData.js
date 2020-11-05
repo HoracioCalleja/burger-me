@@ -7,6 +7,7 @@ import Spinner from "../../../components/UI/Spinner/Spinner";
 import classes from "./ContactData.module.css";
 import Input from "../../../components/UI/Input/Input";
 import withErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler";
+import updateObject from "../../../utility";
 import * as actions from "../../../store/actions/";
 
 const ContactData = (props) => {
@@ -145,7 +146,7 @@ const ContactData = (props) => {
       ingredients: props.ingredients,
       price: props.price,
       userData,
-      userId : props.userId
+      userId: props.userId,
     };
     props.onSubmitOrder(orderData, props.token);
   };
@@ -177,16 +178,17 @@ const ContactData = (props) => {
   };
 
   const inputChangedHandler = (event, inputIdentifier) => {
-    const updatedFormData = { ...formData };
-    const updatedFormElement = { ...updatedFormData[inputIdentifier] };
-    updatedFormElement.value = event.target.value;
-    updatedFormElement.touched = true;
-    updatedFormElement.valid = formInputsValidation(
-      event.target.value,
-      updatedFormElement.validation
-    );
-    console.log(updatedFormElement);
-    updatedFormData[inputIdentifier] = updatedFormElement;
+    const updatedFormElement = updateObject(formData[inputIdentifier], {
+      value: event.target.value,
+      touched: true,
+      valid: formInputsValidation(
+        event.target.value,
+        formData[inputIdentifier].validation
+      ),
+    });
+    const updatedFormData = updateObject(formData, {
+      [inputIdentifier]: updatedFormElement,
+    });
     let isFormValid = true;
     for (let identifier in updatedFormData) {
       isFormValid = updatedFormData[identifier].valid && isFormValid;
@@ -239,7 +241,6 @@ const mapStateToProps = (state) => {
     loading: state.reducerOrder.loading,
     token: state.reducerAuth.token,
     userId: state.reducerAuth.userId,
-
   };
 };
 

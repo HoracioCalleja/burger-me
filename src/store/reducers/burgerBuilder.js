@@ -1,5 +1,5 @@
 import * as actionTypes from "../actions/actionTypes";
-import updateObject from "../utility";
+import updateObject from "../../utility";
 
 const INITIAL_PRICE = 4;
 const INGREDIENT_PRICES = {

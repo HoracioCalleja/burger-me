@@ -6,20 +6,20 @@ import { connect } from "react-redux";
 const NavigationItems = (props) => {
   return (
     <ul className={classes.NavigationItems}>
-      <NavigationItem link={"/"} exact clicked={props.onItemClicked}>
+      <NavigationItem link={"/"} exact >
         Burger Builder
       </NavigationItem>
       {props.isAuthenticated ? (
         <>
-          <NavigationItem link={"/orders"} clicked={props.onItemClicked}>
+          <NavigationItem link={"/orders"} >
             Orders
           </NavigationItem>
-          <NavigationItem link={"/logout"} clicked={props.onItemClicked}>
+          <NavigationItem link={"/logout"} >
             Logout
           </NavigationItem>
         </>
       ) : (
-        <NavigationItem link={"/authentication"} clicked={props.onItemClicked}>
+        <NavigationItem link={"/authentication"} >
           Authentication
         </NavigationItem>
       )}
