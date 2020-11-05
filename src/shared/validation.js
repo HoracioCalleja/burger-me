@@ -15,7 +15,7 @@ const checkValidation = (value, rules) => {
   }
 
   if (rules.isAlpha) {
-    isValid = validator.isAlpha(value) && isValid;
+    isValid = validator.isAlpha(validator.trim(value)) && isValid;
   }
 
   if (rules.isPostalCode) {
