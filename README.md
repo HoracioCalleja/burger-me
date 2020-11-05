@@ -3,8 +3,6 @@
 ## Delivery de hamburguesa.
 Aplicación web SPA donde vas a poder armar tu hamburguesa y realizar un pedido. Se utiliza redux para el control del estado general, hooks y component clases. React Router Dom para simular distintas páginas.
 ***
-
-***
 ## ¿Qué se aplica en el projecto?
 * Class based components
 * useState y useEffect hooks
