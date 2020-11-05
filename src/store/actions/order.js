@@ -28,11 +28,9 @@ export const submitOrder = (orderData, token) => {
     axiosInstance
       .post("orders.json?auth=" + token, orderData)
       .then((response) => {
-        console.log("Response at post...", response);
         dispatch(orderSubmitSucceded(response.data.name, orderData));
       })
       .catch((error) => {
-        console.log(error);
         dispatch(orderSubmitedFailed(error));
       });
   };

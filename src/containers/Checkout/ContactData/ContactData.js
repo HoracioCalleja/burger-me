@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import validator from "validator";
 import Button from "../../../components/UI/Button/Button";
 import axios from "../../../axios-orders";
 import Spinner from "../../../components/UI/Spinner/Spinner";
 import classes from "./ContactData.module.css";
 import Input from "../../../components/UI/Input/Input";
 import withErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler";
-import updateObject from "../../../utility";
+import updateObject from "../../../shared/utility";
+import checkValidation from "../../../shared/validation";
 import * as actions from "../../../store/actions/";
 
 const ContactData = (props) => {
@@ -29,6 +29,7 @@ const ContactData = (props) => {
           min: 3,
           max: 20,
         },
+        isAlpha: true,
       },
       valid: false,
       touched: false,
@@ -114,6 +115,7 @@ const ContactData = (props) => {
           min: 3,
           max: 20,
         },
+        isAlpha: true,
       },
       valid: false,
     },
@@ -151,37 +153,11 @@ const ContactData = (props) => {
     props.onSubmitOrder(orderData, props.token);
   };
 
-  const formInputsValidation = (value, rules) => {
-    let isValid = true;
-
-    if (rules.notEmpty) {
-      isValid = !validator.isEmpty(value.trim()) && isValid;
-    }
-
-    if (rules.lengths) {
-      isValid =
-        validator.isLength(value, {
-          min: rules.lengths.min,
-          max: rules.lengths.max,
-        }) && isValid;
-    }
-
-    if (rules.isAlpha) {
-      return validator.isAlpha(value) && isValid;
-    }
-
-    if (rules.isPostalCode) {
-      return validator.isPostalCode(value, "any") && isValid;
-    }
-
-    return isValid;
-  };
-
   const inputChangedHandler = (event, inputIdentifier) => {
     const updatedFormElement = updateObject(formData[inputIdentifier], {
       value: event.target.value,
       touched: true,
-      valid: formInputsValidation(
+      valid: checkValidation(
         event.target.value,
         formData[inputIdentifier].validation
       ),

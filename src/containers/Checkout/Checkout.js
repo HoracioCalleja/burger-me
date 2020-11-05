@@ -5,7 +5,6 @@ import ContactData from "./ContactData/ContactData";
 import { Route, Redirect } from "react-router-dom";
 
 const Checkout = (props) => {
-  console.log(props);
   const checkoutCancelHandler = () => {
     props.history.goBack();
   };

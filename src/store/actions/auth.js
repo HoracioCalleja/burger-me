@@ -83,7 +83,6 @@ export const checkTokens = () => {
     } else {
       const expirationDate = new Date(localStorage.getItem("expirationDate"));
       if (expirationDate <= new Date()) {
-        console.log('logginout')
         dispatch(logout());
       } else {
         const userId = localStorage.getItem("userId");

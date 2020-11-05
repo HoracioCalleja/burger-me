@@ -3,10 +3,11 @@ import Input from "../../components/UI/Input/Input";
 import Button from "../../components/UI/Button/Button";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import classes from "./Auth.module.css";
-import validator from "validator";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/";
+import updateObject from "../../shared/utility";
+import checkValidation from '../../shared/validation';
 
 const Auth = (props) => {
   useEffect(() => {
@@ -58,50 +59,22 @@ const Auth = (props) => {
 
   const [isSignUp, setIsSignUp] = useState(true);
 
-  const formInputsValidation = (value, rules) => {
-    let isValid = true;
-
-    if (rules.notEmpty) {
-      isValid = !validator.isEmpty(value.trim()) && isValid;
-    }
-
-    if (rules.lengths) {
-      isValid =
-        validator.isLength(value, {
-          min: rules.lengths.min,
-          max: rules.lengths.max,
-        }) && isValid;
-    }
-
-    if (rules.isAlpha) {
-      isValid = validator.isAlpha(value) && isValid;
-    }
-
-    if (rules.isPostalCode) {
-      isValid = validator.isPostalCode(value, "any") && isValid;
-    }
-
-    if (rules.isEmail) {
-      isValid = validator.isEmail(value) && isValid;
-    }
-
-    return isValid;
-  };
-
   const inputChangedHandler = (event, elementIdentifier) => {
-    const elementsUpdated = {
-      ...formData,
-      [elementIdentifier]: {
-        ...formData[elementIdentifier],
+    const updatedFormElement = updateObject(
+      formData,
+      updateObject(formData[elementIdentifier], {
         value: event.target.value,
-        valid: formInputsValidation(
+        valid: checkValidation(
           event.target.value,
           formData[elementIdentifier].validation
         ),
         touched: true,
-      },
-    };
-    setFormData(elementsUpdated);
+      })
+    );
+    const updatedForm = updateObject(formData, {
+      [elementIdentifier]: updatedFormElement,
+    });
+    setFormData(updatedForm);
   };
 
   let elementArray = [];
