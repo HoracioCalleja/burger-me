@@ -1,12 +1,4 @@
 ## Available Scripts
+Aplicación web SPA donde vas a poder armar tu hamburguesa y realizar un pedido. Se utiliza redux para el control del estado general, hooks y component clases. React Router Dom para simular distintas páginas.
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
+DEMO -> https://burger-me-bf1b4.web.app/
